@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Careerbeam.API/Careerbeam.API.csproj" />
+  <Project Path="Careerbeam.Core/Careerbeam.Core.csproj" />
+  <Project Path="Careerbeam.Infrastructure/Careerbeam.Infrastructure.csproj" />
+</Solution>
