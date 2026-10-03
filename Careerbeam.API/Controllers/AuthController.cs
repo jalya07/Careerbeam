@@ -1,6 +1,8 @@
 using Careerbeam.Core.DTOs;
 using Careerbeam.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Careerbeam.API.Controllers;
 
@@ -41,5 +43,16 @@ public class AuthController : ControllerBase
         {
             return Unauthorized(new { message = ex.Message });
         }
+    }
+
+    [Authorize]
+    [HttpGet("me")]
+    public async Task<IActionResult> Me()
+    {
+        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = int.Parse(userIdClaim!);
+
+        var result = await _authService.GetCurrentUserAsync(userId);
+        return Ok(result);
     }
 }

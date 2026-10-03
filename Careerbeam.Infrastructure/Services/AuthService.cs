@@ -95,4 +95,26 @@ public class AuthService : IAuthService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+    public async Task<CurrentUserResponse> GetCurrentUserAsync(int userId)
+    {
+        var user = await _context.Users
+            .Include(u => u.JobSeekerProfile)
+            .Include(u => u.EmployerProfile)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user == null)
+            throw new KeyNotFoundException("Пользователь не найден.");
+
+        var fullName = user.Role == UserRole.JobSeeker
+            ? user.JobSeekerProfile?.FullName ?? string.Empty
+            : user.EmployerProfile?.CompanyName ?? string.Empty;
+
+        return new CurrentUserResponse
+        {
+            Id = user.Id,
+            Email = user.Email,
+            Role = user.Role,
+            FullName = fullName
+        };
+    }
 }
