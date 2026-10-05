@@ -37,6 +37,7 @@ builder.Services.AddDbContext<CareerbeamDbContext>(options =>
 // Регистрируем сервис аутентификации через интерфейс
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IFileStorageService, LocalFileStorageService>();
+builder.Services.AddScoped<IJobSeekerService, JobSeekerService>();
 
 // Настройка JWT-аутентификации
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
