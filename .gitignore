@@ -480,3 +480,8 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+
+# Загруженные пользователями файлы
+Careerbeam.API/uploads/
+Careerbeam.API/wwwroot/uploads/
